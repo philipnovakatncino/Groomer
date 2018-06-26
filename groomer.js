@@ -94,6 +94,7 @@ function normalizeNumber(number) {
 
 document.getElementById('start-button').onclick = startMeeting;
 document.getElementById('next-ticket').onclick = recalculateTime;
+document.getElementById('stop-button').onclick = endMeeting;
 document.getElementById('start-over').onclick = startOver;
 
 const ONE_SECOND = 1000;

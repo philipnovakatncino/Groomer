@@ -25,21 +25,23 @@
 				class="slds-button slds-button--success">
 				Start Meeting
 			</button>
-			<button
-				id="stop-button"
-				class="slds-button slds-button--destructive slds-hide">
-				Stop
-			</button>
 		</div>
 		<div class="view-page slds-hide" id="timer-view">
 			<h1 id="timer" class="slds-text-heading--large slds-align--absolute-center"></h1>
 			<h2 id="time-per-ticket" class="slds-text-heading--medium slds-align--absolute-center"></h2>
 			<h2 id="tickets-left" class="slds-text-heading--medium slds-align--absolute-center"></h2>
-			<button
-				id="next-ticket"
-				class="slds-button slds-button_outline-brand slds-align--absolute-center slds-m-top--large">
-				Next Ticket
-			</button>
+			<div class="slds-align--absolute-center slds-m-top--large">
+				<button
+					id="next-ticket"
+					class="slds-button slds-button_outline-brand">
+					Next Ticket
+				</button>
+				<button
+					id="stop-button"
+					class="slds-button slds-button--destructive">
+					Stop
+				</button>
+			</div>
 		</div>
 		<div class="view-page slds-hide" id="end-view">
 			<h1 class="slds-text-heading--large slds-align--absolute-center">
@@ -47,7 +49,7 @@
 			</h1>
 			<button
 				id="start-over"
-				class="slds-button slds-button--destructive slds-align--absolute-center">
+				class="slds-button slds-button--destructive slds-align--absolute-center slds-m-top--large">
 				Start over
 			</button>
 		</div>
