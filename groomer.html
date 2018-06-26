@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.css">
+		<style>
+			body {
+				width: 300px;
+				border: gray 1px solid;
+			}
+		</style>
+	</head>
+	<body class="slds-p-around--large">
+		<div class="view-page slds-show" id="start-view">
+			<h1 class="slds-text-heading--large slds-m-bottom--large">Groomer</h1>
+			<div class="slds-m-bottom--small">
+				Tickets
+				<input id="tickets" type="number" class="slds-input">
+			</div>
+			<div class="slds-m-bottom--small">
+				Time (minutes)
+				<input id="time" type="number" class="slds-input">
+			</div>
+			<button
+				id="start-button"
+				class="slds-button slds-button--success">
+				Start Meeting
+			</button>
+			<button
+				id="stop-button"
+				class="slds-button slds-button--destructive slds-hide">
+				Stop
+			</button>
+		</div>
+		<div class="view-page slds-hide" id="timer-view">
+			<h1 id="timer" class="slds-text-heading--large slds-align--absolute-center"></h1>
+			<h2 id="time-per-ticket" class="slds-text-heading--medium slds-align--absolute-center"></h2>
+			<h2 id="tickets-left" class="slds-text-heading--medium slds-align--absolute-center"></h2>
+			<button
+				id="next-ticket"
+				class="slds-button slds-button_outline-brand slds-align--absolute-center slds-m-top--large">
+				Next Ticket
+			</button>
+		</div>
+		<div class="view-page slds-hide" id="end-view">
+			<h1 class="slds-text-heading--large slds-align--absolute-center">
+				All done!
+			</h1>
+			<button
+				id="start-over"
+				class="slds-button slds-button--destructive slds-align--absolute-center">
+				Start over
+			</button>
+		</div>
+		<script src="groomer.js"></script>
+	</body>
+</html>
