@@ -2,10 +2,7 @@
   "name": "Groomer",
   "version": "0.0.0",
   "description": "A smarter backlog grooming timer.",
-  "background": {
-    "scripts": ["background.js"],
-    "persistent": false
-  },
+  "permissions": ["storage"],
   "browser_action": {
     "default_popup": "groomer.html"
   },

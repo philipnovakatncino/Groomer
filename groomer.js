@@ -1,32 +1,48 @@
-let timeTotal, timeLeft, ticketsLeft, timePerTicket, timerInstance;
+let timeStart, timeEnd, timeLeft, ticketsLeft, timePerTicket, timerInstance;
 
 function startMeeting() {
 	const tickets = +getInputValue('tickets');
 	const timeInMinutes = +getInputValue('time');
-	timeTotal = timeInMinutes * MINUTES_TO_MILLISECONDS;
+	const timeTotal = timeInMinutes * MINUTES_TO_MILLISECONDS;
+	timeStart = Date.now();
+	timeEnd = timeStart + timeTotal;
 	timeLeft = timeTotal;
 	ticketsLeft = tickets;
-	setTicketsLeft();
-	recalculateTime();
+	loadIntoLocalStorage();
+	refreshView();
+}
+
+function refreshView() {
+	recalculateTimePerTicket();
+	refreshTimerDisplay();
 	setView('timer-view');
-	setTimerDisplay();
 	startTimer();
 }
 
-function recalculateTime() {
+function nextTicket() {
+	ticketsLeft--;
 	if (ticketsLeft > 0) {
-		timePerTicket = timeLeft / ticketsLeft;
-		setTimePerTicket();
-		setTicketsLeft();
-		ticketsLeft--;
+		recalculateTimePerTicket();
+		loadIntoLocalStorage();
 	} else {
 		endMeeting();
 	}
 }
 
+function recalculateTimeLeft() {
+	timeLeft = timeEnd - Date.now();
+}
+
+function recalculateTimePerTicket() {
+	timePerTicket = timeLeft / ticketsLeft;
+	refreshTimePerTicket();
+	refreshTicketsLeft();
+}
+
 function endMeeting() {
 	stopTimer();
 	setView('end-view');
+	clearLocaleStorage();
 }
 
 function startOver() {
@@ -35,7 +51,7 @@ function startOver() {
 
 function tick() {
 	timeLeft -= ONE_SECOND;
-	setTimerDisplay();
+	refreshTimerDisplay();
 }
 
 function startTimer() {
@@ -55,16 +71,16 @@ function setView(view) {
 	});
 }
 
-function setTimerDisplay() {
+function refreshTimerDisplay() {
 	document.getElementById('timer').innerText = getDisplayTime(timeLeft);
 }
 
-function setTimePerTicket() {
+function refreshTimePerTicket() {
 	document.getElementById('time-per-ticket').innerText =
 		'Time per ticket: ' + getDisplayTime(timePerTicket);
 }
 
-function setTicketsLeft() {
+function refreshTicketsLeft() {
 	document.getElementById('tickets-left').innerText = ticketsLeft + ' tickets left.';
 }
 
@@ -92,11 +108,49 @@ function normalizeNumber(number) {
 	return number;
 }
 
+function detectStorage() {
+	chrome.storage.local.get('state', function(result) {
+		console.log(result);
+		if (!result.state) {
+			startOver();
+		} else {
+			loadFromLocalStorage(result.state);
+			recalculateTimeLeft();
+			refreshView();
+		}
+	});
+}
+
+function loadFromLocalStorage(state) {
+	timeStart = state.timeStart;
+	timeEnd = state.timeEnd;
+	ticketsLeft = state.ticketsLeft;
+}
+
+function loadIntoLocalStorage() {
+	const state = {
+		timeStart: timeStart,
+		timeEnd: timeEnd,
+		ticketsLeft: ticketsLeft
+	};
+	chrome.storage.local.set({state: state}, function() {
+		console.log('Set state:', state);
+	});
+}
+
+function clearLocaleStorage() {
+	chrome.storage.local.set({state: null}, function() {
+		console.log('State cleared');
+	});
+}
+
 document.getElementById('start-button').onclick = startMeeting;
-document.getElementById('next-ticket').onclick = recalculateTime;
+document.getElementById('next-ticket').onclick = nextTicket;
 document.getElementById('stop-button').onclick = endMeeting;
 document.getElementById('start-over').onclick = startOver;
 
 const ONE_SECOND = 1000;
 const MINUTES_TO_MILLISECONDS = 60 * 1000;
 const HOURS_TO_MILLISECONDS = 60 * 60 * 1000;
+
+detectStorage();

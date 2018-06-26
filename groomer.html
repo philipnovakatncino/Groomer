@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Groomer</title>
 		<link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.css">
-		<style>
-			body {
-				width: 300px;
-				border: gray 1px solid;
-			}
-		</style>
 	</head>
-	<body class="slds-p-around--large">
-		<div class="view-page slds-show" id="start-view">
+	<body class="slds-p-around--large" style="width: 300px">
+		<div class="view-page slds-hide" id="start-view">
 			<h1 class="slds-text-heading--large slds-m-bottom--large">Groomer</h1>
 			<div class="slds-m-bottom--small">
 				Tickets
@@ -53,6 +48,7 @@
 				Start over
 			</button>
 		</div>
+		<div class="view-page slds-show" id="loading-view" style="height: 265px"></div>
 		<script src="groomer.js"></script>
 	</body>
 </html>
