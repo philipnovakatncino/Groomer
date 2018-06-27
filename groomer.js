@@ -24,6 +24,7 @@ function detectStorage() {
 			recalculateTimeLeft();
 			recalculateTimeLeftCurrentTicket();
 			refreshView();
+			refreshProgressBar(recalculatePercentLeft());
 			startTimer();
 		}
 	});
@@ -60,6 +61,11 @@ function recalculateTimeLeftCurrentTicket() {
 	timeLeftCurrentTicket = timeLeft - (timePerTicket * (ticketsLeft - 1));
 }
 
+function recalculatePercentLeft() {
+	const decimal = timeLeft / (timeEnd - timeStart);
+	return 100 * decimal;
+}
+
 function endMeeting() {
 	stopTimer();
 	setView('end-view');
@@ -73,7 +79,8 @@ function startOver() {
 function tick() {
 	timeLeft -= ONE_SECOND;
 	timeLeftCurrentTicket -= ONE_SECOND;
-	refreshTimerDisplay();
+	refreshTimerDisplay()
+	refreshProgressBar(recalculatePercentLeft());
 }
 
 function startTimer() {
@@ -91,6 +98,10 @@ function setView(view) {
 		page.classList.add(view == page.id ? 'slds-show' : 'slds-hide');
 		page.classList.remove(view == page.id ? 'slds-hide' : 'slds-show');
 	});
+}
+
+function refreshProgressBar(percentLeft) {
+	document.getElementById('progress-bar').style.width = percentLeft + '%';
 }
 
 function refreshTimerDisplay() {
