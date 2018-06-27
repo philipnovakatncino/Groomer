@@ -1,4 +1,4 @@
-let timeStart, timeEnd, timeLeft, ticketsLeft, timePerTicket, timerInstance;
+let timeStart, timeEnd, timeLeft, timeLeftCurrentTicket, ticketsLeft, timePerTicket, timerInstance;
 
 function startMeeting() {
 	const tickets = +getInputValue('tickets');
@@ -35,8 +35,10 @@ function recalculateTimeLeft() {
 
 function recalculateTimePerTicket() {
 	timePerTicket = timeLeft / ticketsLeft;
+	timeLeftCurrentTicket = timePerTicket;
 	refreshTimePerTicket();
 	refreshTicketsLeft();
+	refreshTimerDisplay();
 }
 
 function endMeeting() {
@@ -51,6 +53,7 @@ function startOver() {
 
 function tick() {
 	timeLeft -= ONE_SECOND;
+	timeLeftCurrentTicket -= ONE_SECOND;
 	refreshTimerDisplay();
 }
 
@@ -72,16 +75,15 @@ function setView(view) {
 }
 
 function refreshTimerDisplay() {
-	document.getElementById('timer').innerText = getDisplayTime(timeLeft);
+	document.getElementById('timer').innerText = getDisplayTime(timeLeftCurrentTicket);
 }
 
 function refreshTimePerTicket() {
-	document.getElementById('time-per-ticket').innerText =
-		'Time per ticket: ' + getDisplayTime(timePerTicket);
+	document.getElementById('time-per-ticket').innerText = getDisplayTime(timePerTicket);
 }
 
 function refreshTicketsLeft() {
-	document.getElementById('tickets-left').innerText = ticketsLeft + ' tickets left.';
+	document.getElementById('tickets-left').innerText = ticketsLeft;
 }
 
 function getInputValue(inputId) {
@@ -110,7 +112,6 @@ function normalizeNumber(number) {
 
 function detectStorage() {
 	chrome.storage.local.get('state', function(result) {
-		console.log(result);
 		if (!result.state) {
 			startOver();
 		} else {
