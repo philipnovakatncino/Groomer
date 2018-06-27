@@ -95,7 +95,7 @@ function getDisplayTime(timestamp) {
 	const time = (date.getHours() > 0 ? (date.getHours() + ':') : '') +
 		normalizeNumber(date.getMinutes()) + ':' +
 		normalizeNumber(date.getSeconds());
-	return timestamp < 0 ? '-' + time : time;
+	return timestamp <= -ONE_SECOND ? '-' + time : time;
 }
 
 function normalizeDate(timestamp) {
