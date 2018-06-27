@@ -1,6 +1,6 @@
 {
   "name": "Groomer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A smarter backlog grooming timer.",
   "permissions": ["storage"],
   "browser_action": {

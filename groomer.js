@@ -8,21 +8,40 @@ function startMeeting() {
 	timeEnd = timeStart + timeTotal;
 	timeLeft = timeTotal;
 	ticketsLeft = tickets;
+	recalculateTimePerTicket();
+	timeLeftCurrentTicket = timePerTicket;
 	loadIntoLocalStorage();
 	refreshView();
+	startTimer();
+}
+
+function detectStorage() {
+	chrome.storage.local.get('state', function(result) {
+		if (!result.state) {
+			startOver();
+		} else {
+			loadFromLocalStorage(result.state);
+			recalculateTimeLeft();
+			recalculateTimeLeftCurrentTicket();
+			refreshView();
+			startTimer();
+		}
+	});
 }
 
 function refreshView() {
-	recalculateTimePerTicket();
 	refreshTimerDisplay();
+	refreshTimePerTicket();
+	refreshTicketsLeft();
 	setView('timer-view');
-	startTimer();
 }
 
 function nextTicket() {
 	ticketsLeft--;
 	if (ticketsLeft > 0) {
 		recalculateTimePerTicket();
+		timeLeftCurrentTicket = timePerTicket;
+		refreshView();
 		loadIntoLocalStorage();
 	} else {
 		endMeeting();
@@ -35,10 +54,10 @@ function recalculateTimeLeft() {
 
 function recalculateTimePerTicket() {
 	timePerTicket = timeLeft / ticketsLeft;
-	timeLeftCurrentTicket = timePerTicket;
-	refreshTimePerTicket();
-	refreshTicketsLeft();
-	refreshTimerDisplay();
+}
+
+function recalculateTimeLeftCurrentTicket() {
+	timeLeftCurrentTicket = timeLeft - (timePerTicket * (ticketsLeft - 1));
 }
 
 function endMeeting() {
@@ -116,29 +135,19 @@ function getDisplayNumber(number) {
 	return number;
 }
 
-function detectStorage() {
-	chrome.storage.local.get('state', function(result) {
-		if (!result.state) {
-			startOver();
-		} else {
-			loadFromLocalStorage(result.state);
-			recalculateTimeLeft();
-			refreshView();
-		}
-	});
-}
-
 function loadFromLocalStorage(state) {
 	timeStart = state.timeStart;
 	timeEnd = state.timeEnd;
 	ticketsLeft = state.ticketsLeft;
+	timePerTicket = state.timePerTicket;
 }
 
 function loadIntoLocalStorage() {
 	const state = {
 		timeStart: timeStart,
 		timeEnd: timeEnd,
-		ticketsLeft: ticketsLeft
+		ticketsLeft: ticketsLeft,
+		timePerTicket: timePerTicket
 	};
 	chrome.storage.local.set({state: state}, function() {
 		console.log('Set state:', state);
