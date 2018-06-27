@@ -92,13 +92,14 @@ function getInputValue(inputId) {
 
 function getDisplayTime(timestamp) {
 	const date = normalizeDate(timestamp);
-	return (date.getHours() > 0 ? (date.getHours() + ':') : '') +
+	const time = (date.getHours() > 0 ? (date.getHours() + ':') : '') +
 		normalizeNumber(date.getMinutes()) + ':' +
 		normalizeNumber(date.getSeconds());
+	return timestamp < 0 ? '-' + time : time;
 }
 
 function normalizeDate(timestamp) {
-	const date = new Date(timestamp);
+	const date = new Date(Math.abs(timestamp));
 	date.setTime(date.getTime() + date.getTimezoneOffset() * MINUTES_TO_MILLISECONDS);
 	return date;
 }
