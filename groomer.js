@@ -91,20 +91,25 @@ function getInputValue(inputId) {
 }
 
 function getDisplayTime(timestamp) {
-	const date = normalizeDate(timestamp);
-	const time = (date.getHours() > 0 ? (date.getHours() + ':') : '') +
-		normalizeNumber(date.getMinutes()) + ':' +
-		normalizeNumber(date.getSeconds());
-	return timestamp <= -ONE_SECOND ? '-' + time : time;
+	let timeValues = [];
+	let timeValue;
+	let remainingTime = Math.floor(timestamp / 1000);
+	for (let i = 0; i < 3; i++) {
+		timeValue = remainingTime % 60;
+		timeValues.push(timeValue);
+		remainingTime -= timeValue;
+		remainingTime /= 60;
+	}
+	const seconds = Math.abs(timeValues[0]);
+	const minutes = Math.abs(timeValues[1]);
+	const hours = Math.abs(timeValues[2]);
+	const timeString = (hours > 0 ? (hours + ':') : '') +
+		getDisplayNumber(minutes) + ':' +
+		getDisplayNumber(seconds);
+	return timestamp < 0 ? ('-' + timeString) : timeString;
 }
 
-function normalizeDate(timestamp) {
-	const date = new Date(Math.abs(timestamp));
-	date.setTime(date.getTime() + date.getTimezoneOffset() * MINUTES_TO_MILLISECONDS);
-	return date;
-}
-
-function normalizeNumber(number) {
+function getDisplayNumber(number) {
 	if (number < 10) {
 		return '0' + number;
 	}
