@@ -94,7 +94,13 @@ function setView(view) {
 }
 
 function refreshTimerDisplay() {
-	document.getElementById('timer').innerText = getDisplayTime(timeLeftCurrentTicket);
+	const timer = document.getElementById('timer');
+	if (timeLeftCurrentTicket <= 30 * ONE_SECOND) {
+		timer.classList.add('slds-text-color--error');
+	} else {
+		timer.classList.remove('slds-text-color--error');
+	}
+	timer.innerText = getDisplayTime(timeLeftCurrentTicket);
 }
 
 function refreshTimePerTicket() {
