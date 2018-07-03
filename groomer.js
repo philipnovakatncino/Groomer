@@ -1,11 +1,10 @@
-let timeStart, timeEnd, timeLeft, timeLeftCurrentTicket, ticketsLeft, timePerTicket, timerInstance;
+let timeEnd, timeLeft, timeLeftCurrentTicket, ticketsLeft, timePerTicket, timerInstance;
 
 function startMeeting() {
 	const tickets = +getInputValue('tickets');
 	const timeInMinutes = +getInputValue('time');
 	const timeTotal = timeInMinutes * MINUTES_TO_MILLISECONDS;
-	timeStart = Date.now();
-	timeEnd = timeStart + timeTotal;
+	timeEnd = Date.now() + timeTotal;
 	timeLeft = timeTotal;
 	ticketsLeft = tickets;
 	recalculateTimePerTicket();
@@ -142,7 +141,6 @@ function getDisplayNumber(number) {
 }
 
 function loadFromLocalStorage(state) {
-	timeStart = state.timeStart;
 	timeEnd = state.timeEnd;
 	ticketsLeft = state.ticketsLeft;
 	timePerTicket = state.timePerTicket;
@@ -150,7 +148,6 @@ function loadFromLocalStorage(state) {
 
 function loadIntoLocalStorage() {
 	const state = {
-		timeStart: timeStart,
 		timeEnd: timeEnd,
 		ticketsLeft: ticketsLeft,
 		timePerTicket: timePerTicket
