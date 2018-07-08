@@ -36,16 +36,33 @@
 				Remaining Tickets: <span id="tickets-left" class="slds-m-left--small"></span>
 			</h2>
 			<div class="slds-align--absolute-center slds-m-top--large">
-				<button
-					id="stop-button"
-					class="slds-button slds-button--destructive">
-					End
-				</button>
-				<button
-					id="next-ticket"
-					class="slds-button slds-button_outline-brand">
-					Next Ticket
-				</button>
+				<div id="button-bar">
+					<button
+						id="stop-button"
+						class="slds-button slds-button--destructive">
+						End
+					</button>
+					<button
+						id="next-ticket"
+						class="slds-button slds-button_outline-brand">
+						Next Ticket
+					</button>
+				</div>
+				<div id="button-confirmation" class="slds-hide">
+					<h3 class="slds-text-heading--small slds-m-bottom--small">
+						Are you sure?
+					</h3>
+					<button
+						id="confirmation-cancel"
+						class="slds-button slds-button--neutral">
+						Cancel
+					</button>
+					<button
+						id="confirmation-end-meeting"
+						class="slds-button slds-button--destructive">
+						End Meeting
+					</button>
+				</div>
 			</div>
 		</div>
 		<div class="view-page slds-hide" id="end-view">

@@ -110,6 +110,11 @@ function refreshTicketsLeft() {
 	document.getElementById('tickets-left').innerText = ticketsLeft;
 }
 
+function toggleConfirmation() {
+	document.getElementById('button-bar').classList.toggle('slds-hide');
+	document.getElementById('button-confirmation').classList.toggle('slds-hide');
+}
+
 function getInputValue(inputId) {
 	return document.getElementById(inputId).value;
 }
@@ -165,7 +170,9 @@ function clearLocaleStorage() {
 
 document.getElementById('start-button').onclick = startMeeting;
 document.getElementById('next-ticket').onclick = nextTicket;
-document.getElementById('stop-button').onclick = endMeeting;
+document.getElementById('stop-button').onclick = toggleConfirmation;
+document.getElementById('confirmation-cancel').onclick = toggleConfirmation;
+document.getElementById('confirmation-end-meeting').onclick = endMeeting;
 document.getElementById('start-over').onclick = startOver;
 
 const ONE_SECOND = 1000;
