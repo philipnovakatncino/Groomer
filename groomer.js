@@ -1,8 +1,6 @@
 let timeEnd, timeLeft, timeLeftCurrentTicket, ticketsLeft, timePerTicket, timerInstance;
 
-function startMeeting() {
-	const tickets = +getInputValue('tickets');
-	const timeInMinutes = +getInputValue('time');
+function startMeeting(tickets, timeInMinutes) {
 	const timeTotal = timeInMinutes * MINUTES_TO_MILLISECONDS;
 	timeEnd = Date.now() + timeTotal;
 	timeLeft = timeTotal;
@@ -115,8 +113,38 @@ function toggleConfirmation() {
 	document.getElementById('button-confirmation').classList.toggle('slds-hide');
 }
 
-function getInputValue(inputId) {
-	return document.getElementById(inputId).value;
+function verifyFormAndSubmit() {
+	let foundErrors = false;
+	const tickets = document.getElementById('tickets');
+	const time = document.getElementById('time');
+
+	const ticketsValue = parseInt(tickets.value);
+	if (isNaN(ticketsValue) || ticketsValue < 1) {
+		addInputError(tickets);
+		foundErrors = true;
+	} else {
+		removeInputError(tickets);
+	}
+
+	const timeValue = parseFloat(time.value);
+	if (isNaN(timeValue) || timeValue < 1) {
+		addInputError(time);
+		foundErrors = true;
+	} else {
+		removeInputError(time);
+	}
+
+	if (!foundErrors) {
+		startMeeting(ticketsValue, timeValue);
+	}
+}
+
+function addInputError(inputElement) {
+	inputElement.classList.add('slds-has-error');
+}
+
+function removeInputError(inputElement) {
+	inputElement.classList.remove('slds-has-error');
 }
 
 function getDisplayTime(timestamp) {
@@ -168,7 +196,7 @@ function clearLocaleStorage() {
 	});
 }
 
-document.getElementById('start-button').onclick = startMeeting;
+document.getElementById('start-button').onclick = verifyFormAndSubmit;
 document.getElementById('next-ticket').onclick = nextTicket;
 document.getElementById('stop-button').onclick = toggleConfirmation;
 document.getElementById('confirmation-cancel').onclick = toggleConfirmation;
