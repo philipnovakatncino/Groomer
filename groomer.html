@@ -2,82 +2,87 @@
 <html>
 	<head>
 		<title>Groomer</title>
-		<link rel="stylesheet" href="assets/styles/salesforce-lightning-design-system.css">
+		<link rel="stylesheet" href="assets/styles/bulma.min.css">
 		<style>
-			#tickets-left {
-				font-weight: 600;
-				color: #0070d2;
+			body {
+				width: 300px;
+				padding: 20px;
+			}
+			p {
+				margin: 10px 0;
 			}
 		</style>
 	</head>
-	<body class="slds-p-around--large" style="width: 300px">
-		<div class="view-page slds-hide" id="start-view">
-			<h1 class="slds-text-heading--large slds-m-bottom--large">Groomer</h1>
-			<div class="slds-m-bottom--small">
+	<body>
+		<section class="view-page is-hidden" id="start-view">
+			<h1 class="is-size-3">Groomer</h1>
+			<p>
 				Number of Tickets
-				<input id="tickets" type="number" class="slds-input">
-			</div>
-			<div class="slds-m-bottom--small">
+				<input id="tickets" type="number" class="input">
+			</p>
+			<p>
 				Length of Meeting (minutes)
-				<input id="time" type="number" class="slds-input">
-			</div>
+				<input id="time" type="number" class="input">
+			</p>
 			<button
 				id="start-button"
-				class="slds-button slds-button--success">
+				class="button has-background-success">
 				Start Meeting
 			</button>
-		</div>
-		<div class="view-page slds-hide" id="timer-view">
-			<h1 id="timer" class="slds-text-heading--large slds-align--absolute-center"></h1>
-			<h2 class="slds-text-heading--medium slds-align--absolute-center">
-				Time Per Ticket: <span id="time-per-ticket" class="slds-m-left--small"></span>
-			</h2>
-			<h2 class="slds-text-heading--medium slds-align--absolute-center">
-				Remaining Tickets: <span id="tickets-left" class="slds-m-left--small"></span>
-			</h2>
-			<div class="slds-align--absolute-center slds-m-top--large">
+		</section>
+		<section class="view-page is-hidden" id="timer-view">
+			<p id="timer" class="is-size-1"></p>
+			<p class="is-size-5">
+				Time Per Ticket: <span id="time-per-ticket"></span>
+			</p>
+			<p class="is-size-5">
+				Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
+			</p>
+			<div class="level">
 				<div id="button-bar">
 					<button
 						id="stop-button"
-						class="slds-button slds-button--destructive">
+						class="button is-danger">
 						End
 					</button>
 					<button
 						id="next-ticket"
-						class="slds-button slds-button_outline-brand">
+						class="button is-info is-outlined">
 						Next Ticket
 					</button>
 				</div>
-				<div id="button-confirmation" class="slds-hide">
-					<h3 class="slds-text-heading--small slds-m-bottom--small">
+				<div id="button-confirmation" class="is-hidden">
+					<p class="is-size-6">
 						Are you sure?
-					</h3>
+					</p>
 					<button
 						id="confirmation-cancel"
-						class="slds-button slds-button--neutral">
+						class="button is-info is-outlined">
 						Cancel
 					</button>
 					<button
 						id="confirmation-end-meeting"
-						class="slds-button slds-button--destructive">
+						class="button is-danger">
 						End Meeting
 					</button>
 				</div>
 			</div>
-		</div>
-		<div class="view-page slds-hide" id="end-view">
-			<h1 class="slds-text-heading--large slds-align--absolute-center">
+		</section>
+		<section class="view-page is-hidden" id="end-view">
+			<h1 class="is-size-3 has-text-centered">
 				All done!
 			</h1>
-			<button
-				id="start-over"
-				class="slds-button slds-button--brand slds-align--absolute-center slds-m-top--large">
-				Start over
-			</button>
-		</div>
-		<div class="view-page slds-show" id="loading-view" style="height: 265px">
-			<div class="slds-align--absolute-center">Loading...</div>
-		</div>
+			<div class="has-text-centered">
+				<button
+						  id="start-over"
+						  class="button is-info">
+					Start over
+				</button>
+			</div>
+		</section>
+		<section class="view-page" id="default-view">
+			<p class="has-text-centered">Something must have gone wrong :/</p>
+		</section>
 		<script src="groomer.js"></script>
 	</body>
 </html>
