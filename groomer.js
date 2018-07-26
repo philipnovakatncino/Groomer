@@ -114,28 +114,22 @@ function toggleConfirmation() {
 }
 
 function verifyFormAndSubmit() {
-	let foundErrors = false;
-	const tickets = document.getElementById('tickets');
-	const time = document.getElementById('time');
-
-	const ticketsValue = parseInt(tickets.value);
-	if (isNaN(ticketsValue) || ticketsValue < 1) {
-		addInputError(tickets);
-		foundErrors = true;
-	} else {
-		removeInputError(tickets);
+	const tickets = validateInput('tickets');
+	const time = validateInput('time');
+	if (tickets && time) {
+		startMeeting(tickets, time);
 	}
+}
 
-	const timeValue = parseFloat(time.value);
-	if (isNaN(timeValue) || timeValue < 1) {
-		addInputError(time);
-		foundErrors = true;
+function validateInput(elementId) {
+	const element = document.getElementById(elementId);
+	const value = parseInt(element.value);
+	if (isNaN(value) || value < 1) {
+		addInputError(element);
+		return false;
 	} else {
-		removeInputError(time);
-	}
-
-	if (!foundErrors) {
-		startMeeting(ticketsValue, timeValue);
+		removeInputError(element);
+		return value;
 	}
 }
 
