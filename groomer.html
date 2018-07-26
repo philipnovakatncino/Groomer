@@ -26,20 +26,20 @@
 			</p>
 			<button
 				id="start-button"
-				class="button has-background-success">
+				class="button is-success">
 				Start Meeting
 			</button>
 		</section>
 		<section class="view-page is-hidden" id="timer-view">
-			<p id="timer" class="is-size-1"></p>
-			<p class="is-size-5">
-				Time Per Ticket: <span id="time-per-ticket"></span>
-			</p>
-			<p class="is-size-5">
-				Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
-			</p>
-			<div class="level">
-				<div id="button-bar">
+			<div class="has-text-centered">
+				<div id="timer" class="is-size-1"></div>
+				<div class="is-size-5">
+					Time Per Ticket: <span id="time-per-ticket"></span>
+				</div>
+				<div class="is-size-5">
+					Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
+				</div>
+				<div id="button-bar" style="margin-top:10px">
 					<button
 						id="stop-button"
 						class="button is-danger">
@@ -69,13 +69,13 @@
 			</div>
 		</section>
 		<section class="view-page is-hidden" id="end-view">
-			<h1 class="is-size-3 has-text-centered">
-				All done!
-			</h1>
 			<div class="has-text-centered">
+				<h1 class="is-size-3">
+					All done!
+				</h1>
 				<button
-						  id="start-over"
-						  class="button is-info">
+					id="start-over"
+					class="button is-info">
 					Start over
 				</button>
 			</div>
