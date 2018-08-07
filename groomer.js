@@ -85,17 +85,20 @@ function stopTimer() {
 
 function setView(view) {
 	document.querySelectorAll('.view-page').forEach(function(page) {
-		page.classList.add(view == page.id ? 'slds-show' : 'slds-hide');
-		page.classList.remove(view == page.id ? 'slds-hide' : 'slds-show');
+		if (page.id == view) {
+			page.classList.remove('is-hidden');
+		} else {
+			page.classList.add('is-hidden');
+		}
 	});
 }
 
 function refreshTimerDisplay() {
 	const timer = document.getElementById('timer');
 	if (timeLeftCurrentTicket <= 30 * ONE_SECOND) {
-		timer.classList.add('slds-text-color--error');
+		timer.classList.add('has-text-danger');
 	} else {
-		timer.classList.remove('slds-text-color--error');
+		timer.classList.remove('has-text-danger');
 	}
 	timer.innerText = getDisplayTime(timeLeftCurrentTicket);
 }
@@ -109,8 +112,8 @@ function refreshTicketsLeft() {
 }
 
 function toggleConfirmation() {
-	document.getElementById('button-bar').classList.toggle('slds-hide');
-	document.getElementById('button-confirmation').classList.toggle('slds-hide');
+	document.getElementById('button-bar').classList.toggle('is-hidden');
+	document.getElementById('button-confirmation').classList.toggle('is-hidden');
 }
 
 function verifyFormAndSubmit() {
