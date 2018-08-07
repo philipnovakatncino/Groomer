@@ -194,7 +194,7 @@ document.getElementById('start-button').onclick = verifyFormAndSubmit;
 document.getElementById('next-ticket').onclick = nextTicket;
 document.getElementById('stop-button').onclick = toggleConfirmation;
 document.getElementById('confirmation-cancel').onclick = toggleConfirmation;
-document.getElementById('confirmation-end-meeting').onclick = endMeeting;
+document.getElementById('confirmation-end-meeting').onclick = () => { endMeeting(); toggleConfirmation(); };
 document.getElementById('start-over').onclick = startOver;
 
 const ONE_SECOND = 1000;
