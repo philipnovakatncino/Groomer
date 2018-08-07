@@ -137,11 +137,11 @@ function validateInput(elementId) {
 }
 
 function addInputError(inputElement) {
-	inputElement.classList.add('slds-has-error');
+	inputElement.classList.add('is-danger');
 }
 
 function removeInputError(inputElement) {
-	inputElement.classList.remove('slds-has-error');
+	inputElement.classList.remove('is-danger');
 }
 
 function getDisplayTime(timestamp) {
