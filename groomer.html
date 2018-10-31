@@ -1,88 +1,79 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Groomer</title>
-		<link rel="stylesheet" href="assets/styles/bulma.min.css">
-		<style>
-			body {
-				width: 300px;
-				padding: 20px;
-			}
-			p, button {
-				margin-top: 12px;
-			}
-		</style>
-	</head>
-	<body>
-		<section class="view-page is-hidden" id="start-view">
-			<h1 class="is-size-3">Groomer</h1>
-			<p>
-				Number of Tickets
-				<input id="tickets" type="number" class="input">
-			</p>
-			<p>
-				Length of Meeting (minutes)
-				<input id="time" type="number" class="input">
-			</p>
-			<button
-				id="start-button"
-				class="button is-success">
-				Start Meeting
-			</button>
-		</section>
-		<section class="view-page is-hidden" id="timer-view">
-			<div class="has-text-centered">
-				<div id="timer" class="is-size-1"></div>
-				<div class="is-size-5">
-					Time Per Ticket: <span id="time-per-ticket"></span>
-				</div>
-				<div class="is-size-5">
-					Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
-				</div>
-				<div id="button-bar">
-					<button
-						id="stop-button"
-						class="button is-danger">
-						End
-					</button>
-					<button
-						id="next-ticket"
-						class="button is-info is-outlined">
-						Next Ticket
-					</button>
-				</div>
-				<div id="button-confirmation" class="is-hidden">
-					<p class="is-size-6">
-						Are you sure?
-					</p>
-					<button
-						id="confirmation-cancel"
-						class="button is-info is-outlined">
-						Cancel
-					</button>
-					<button
-						id="confirmation-end-meeting"
-						class="button is-danger">
-						End Meeting
-					</button>
-				</div>
+
+<head>
+	<title>Groomer</title>
+	<link rel="stylesheet" href="assets/styles/bulma.min.css">
+	<style>
+		body {
+			width: 300px;
+			padding: 20px;
+		}
+		p, button {
+			margin-top: 12px;
+		}
+	</style>
+</head>
+
+<body>
+	<section class="view-page is-hidden" id="start-view">
+		<h1 class="is-size-3">Groomer</h1>
+		<p>
+			Number of Tickets
+			<input id="tickets" type="number" class="input">
+		</p>
+		<p>
+			Length of Meeting (minutes)
+			<input id="time" type="number" class="input">
+		</p>
+		<button id="start-button" class="button is-success">
+			Start Meeting
+		</button>
+	</section>
+	<section class="view-page is-hidden" id="timer-view">
+		<div class="has-text-centered">
+			<div id="timer" class="is-size-1"></div>
+			<div class="is-size-5">
+				Time Per Ticket: <span id="time-per-ticket"></span>
 			</div>
-		</section>
-		<section class="view-page is-hidden" id="end-view">
-			<div class="has-text-centered">
-				<h1 class="is-size-3">
-					All done!
-				</h1>
-				<button
-					id="start-over"
-					class="button is-info">
-					Start over
+			<div class="is-size-5">
+				Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
+			</div>
+			<div id="button-bar">
+				<button id="stop-button" class="button is-danger">
+					End
+				</button>
+				<button id="next-ticket" class="button is-info is-outlined">
+					Next Ticket
 				</button>
 			</div>
-		</section>
-		<section class="view-page" id="default-view">
-			<p class="has-text-centered">Something must have gone wrong :/</p>
-		</section>
-		<script src="groomer.js"></script>
-	</body>
+			<div id="button-confirmation" class="is-hidden">
+				<p class="is-size-6">
+					Are you sure?
+				</p>
+				<button id="confirmation-cancel" class="button is-info is-outlined">
+					Cancel
+				</button>
+				<button id="confirmation-end-meeting" class="button is-danger">
+					End Meeting
+				</button>
+			</div>
+		</div>
+	</section>
+	<section class="view-page is-hidden" id="end-view">
+		<div class="has-text-centered">
+			<h1 class="is-size-3">
+				All done!
+			</h1>
+			<button id="start-over" class="button is-info">
+				Start over
+			</button>
+		</div>
+	</section>
+	<section class="view-page" id="default-view">
+		<p class="has-text-centered">Something must have gone wrong :/</p>
+	</section>
+	<script src="groomer.js"></script>
+</body>
+
 </html>
