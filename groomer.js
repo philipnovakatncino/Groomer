@@ -89,7 +89,7 @@ function stopTimer() {
 }
 
 function setView(view) {
-  document.querySelectorAll(".view-page").forEach(function(page) {
+  document.querySelectorAll(".view-page").forEach(page => {
     if (page.id == view) {
       page.classList.remove("is-hidden");
     } else {
@@ -191,13 +191,13 @@ function loadIntoLocalStorage() {
     ticketsLeft: ticketsLeft,
     timePerTicket: timePerTicket
   };
-  chrome.storage.local.set({ state: state }, function() {
+  chrome.storage.local.set({ state }, () => {
     console.log("Set state:", state);
   });
 }
 
 function clearLocaleStorage() {
-  chrome.storage.local.set({ state: null }, function() {
+  chrome.storage.local.set({ state: null }, () => {
     console.log("State cleared");
   });
 }
