@@ -18,7 +18,7 @@ const startMeeting = (tickets, timeInMinutes) => {
 };
 
 const detectStorage = () => {
-  chrome.storage.local.get("state", result => {
+  chrome.storage.local.get('state', result => {
     if (!result.state) {
       startOver();
     } else {
@@ -35,7 +35,7 @@ const refreshView = () => {
   refreshTimerDisplay();
   refreshTimePerTicket();
   refreshTicketsLeft();
-  setView("timer-view");
+  setView('timer-view');
 };
 
 const nextTicket = () => {
@@ -64,12 +64,12 @@ const recalculateTimeLeftCurrentTicket = () => {
 
 const endMeeting = () => {
   stopTimer();
-  setView("end-view");
+  setView('end-view');
   clearLocaleStorage();
 };
 
 const startOver = () => {
-  setView("start-view");
+  setView('start-view');
 };
 
 const tick = () => {
@@ -89,43 +89,43 @@ const stopTimer = () => {
 };
 
 const setView = view => {
-  document.querySelectorAll(".view-page").forEach(page => {
+  document.querySelectorAll('.view-page').forEach(page => {
     if (page.id == view) {
-      page.classList.remove("is-hidden");
+      page.classList.remove('is-hidden');
     } else {
-      page.classList.add("is-hidden");
+      page.classList.add('is-hidden');
     }
   });
 };
 
 const refreshTimerDisplay = () => {
-  const timer = document.getElementById("timer");
+  const timer = document.getElementById('timer');
   if (timeLeftCurrentTicket <= 30 * ONE_SECOND) {
-    timer.classList.add("has-text-danger");
+    timer.classList.add('has-text-danger');
   } else {
-    timer.classList.remove("has-text-danger");
+    timer.classList.remove('has-text-danger');
   }
   timer.innerText = getDisplayTime(timeLeftCurrentTicket);
 };
 
 const refreshTimePerTicket = () => {
-  document.getElementById("time-per-ticket").innerText = getDisplayTime(
+  document.getElementById('time-per-ticket').innerText = getDisplayTime(
     timePerTicket
   );
 };
 
 const refreshTicketsLeft = () => {
-  document.getElementById("tickets-left").innerText = ticketsLeft;
+  document.getElementById('tickets-left').innerText = ticketsLeft;
 };
 
 const toggleConfirmation = () => {
-  document.getElementById("button-bar").classList.toggle("is-hidden");
-  document.getElementById("button-confirmation").classList.toggle("is-hidden");
+  document.getElementById('button-bar').classList.toggle('is-hidden');
+  document.getElementById('button-confirmation').classList.toggle('is-hidden');
 };
 
 const verifyFormAndSubmit = () => {
-  const tickets = validateInput("tickets");
-  const time = validateInput("time");
+  const tickets = validateInput('tickets');
+  const time = validateInput('time');
   if (tickets && time) {
     startMeeting(tickets, time);
   }
@@ -144,11 +144,11 @@ const validateInput = elementId => {
 };
 
 const addInputError = inputElement => {
-  inputElement.classList.add("is-danger");
+  inputElement.classList.add('is-danger');
 };
 
 const removeInputError = inputElement => {
-  inputElement.classList.remove("is-danger");
+  inputElement.classList.remove('is-danger');
 };
 
 const getDisplayTime = timestamp => {
@@ -165,16 +165,16 @@ const getDisplayTime = timestamp => {
   const minutes = Math.abs(timeValues[1]);
   const hours = Math.abs(timeValues[2]);
   const timeString =
-    (hours > 0 ? hours + ":" : "") +
+    (hours > 0 ? hours + ':' : '') +
     getDisplayNumber(minutes) +
-    ":" +
+    ':' +
     getDisplayNumber(seconds);
-  return timestamp < 0 ? "-" + timeString : timeString;
+  return timestamp < 0 ? '-' + timeString : timeString;
 };
 
 const getDisplayNumber = number => {
   if (number < 10) {
-    return "0" + number;
+    return '0' + number;
   }
   return number;
 };
@@ -192,33 +192,33 @@ const loadIntoLocalStorage = () => {
     timePerTicket: timePerTicket
   };
   chrome.storage.local.set({ state }, () => {
-    console.log("Set state:", state);
+    console.log('Set state:', state);
   });
 };
 
 const clearLocaleStorage = () => {
   chrome.storage.local.set({ state: null }, () => {
-    console.log("State cleared");
+    console.log('State cleared');
   });
 };
 
-document.getElementById("start-button").onclick = verifyFormAndSubmit;
-document.getElementById("next-ticket").onclick = nextTicket;
-document.getElementById("stop-button").onclick = toggleConfirmation;
-document.getElementById("confirmation-cancel").onclick = toggleConfirmation;
-document.getElementById("confirmation-end-meeting").onclick = () => {
+document.getElementById('start-button').onclick = verifyFormAndSubmit;
+document.getElementById('next-ticket').onclick = nextTicket;
+document.getElementById('stop-button').onclick = toggleConfirmation;
+document.getElementById('confirmation-cancel').onclick = toggleConfirmation;
+document.getElementById('confirmation-end-meeting').onclick = () => {
   endMeeting();
   toggleConfirmation();
 };
-document.getElementById("start-over").onclick = startOver;
+document.getElementById('start-over').onclick = startOver;
 document.onkeydown = event => {
-  if (event.key == "Enter") {
-    document.getElementById("start-button").classList.add("is-active");
+  if (event.key == 'Enter') {
+    document.getElementById('start-button').classList.add('is-active');
   }
 };
 document.onkeyup = event => {
-  if (event.key == "Enter") {
-    document.getElementById("start-button").classList.remove("is-active");
+  if (event.key == 'Enter') {
+    document.getElementById('start-button').classList.remove('is-active');
     verifyFormAndSubmit();
   }
 };
