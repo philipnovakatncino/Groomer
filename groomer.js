@@ -5,7 +5,7 @@ let timeEnd,
   timePerTicket,
   timerInstance;
 
-function startMeeting(tickets, timeInMinutes) {
+const startMeeting = (tickets, timeInMinutes) => {
   const timeTotal = timeInMinutes * MINUTES_TO_MILLISECONDS;
   timeEnd = Date.now() + timeTotal;
   timeLeft = timeTotal;
@@ -15,9 +15,9 @@ function startMeeting(tickets, timeInMinutes) {
   loadIntoLocalStorage();
   refreshView();
   startTimer();
-}
+};
 
-function detectStorage() {
+const detectStorage = () => {
   chrome.storage.local.get("state", result => {
     if (!result.state) {
       startOver();
@@ -29,16 +29,16 @@ function detectStorage() {
       startTimer();
     }
   });
-}
+};
 
-function refreshView() {
+const refreshView = () => {
   refreshTimerDisplay();
   refreshTimePerTicket();
   refreshTicketsLeft();
   setView("timer-view");
-}
+};
 
-function nextTicket() {
+const nextTicket = () => {
   ticketsLeft--;
   if (ticketsLeft > 0) {
     recalculateTimePerTicket();
@@ -48,47 +48,47 @@ function nextTicket() {
   } else {
     endMeeting();
   }
-}
+};
 
-function recalculateTimeLeft() {
+const recalculateTimeLeft = () => {
   timeLeft = timeEnd - Date.now();
-}
+};
 
-function recalculateTimePerTicket() {
+const recalculateTimePerTicket = () => {
   timePerTicket = timeLeft / ticketsLeft;
-}
+};
 
-function recalculateTimeLeftCurrentTicket() {
+const recalculateTimeLeftCurrentTicket = () => {
   timeLeftCurrentTicket = timeLeft - timePerTicket * (ticketsLeft - 1);
-}
+};
 
-function endMeeting() {
+const endMeeting = () => {
   stopTimer();
   setView("end-view");
   clearLocaleStorage();
-}
+};
 
-function startOver() {
+const startOver = () => {
   setView("start-view");
-}
+};
 
-function tick() {
+const tick = () => {
   timeLeft -= ONE_SECOND;
   timeLeftCurrentTicket -= ONE_SECOND;
   refreshTimerDisplay();
-}
+};
 
-function startTimer() {
+const startTimer = () => {
   timerInstance = setInterval(tick, ONE_SECOND);
-}
+};
 
-function stopTimer() {
+const stopTimer = () => {
   if (timerInstance) {
     clearInterval(timerInstance);
   }
-}
+};
 
-function setView(view) {
+const setView = view => {
   document.querySelectorAll(".view-page").forEach(page => {
     if (page.id == view) {
       page.classList.remove("is-hidden");
@@ -96,9 +96,9 @@ function setView(view) {
       page.classList.add("is-hidden");
     }
   });
-}
+};
 
-function refreshTimerDisplay() {
+const refreshTimerDisplay = () => {
   const timer = document.getElementById("timer");
   if (timeLeftCurrentTicket <= 30 * ONE_SECOND) {
     timer.classList.add("has-text-danger");
@@ -106,32 +106,32 @@ function refreshTimerDisplay() {
     timer.classList.remove("has-text-danger");
   }
   timer.innerText = getDisplayTime(timeLeftCurrentTicket);
-}
+};
 
-function refreshTimePerTicket() {
+const refreshTimePerTicket = () => {
   document.getElementById("time-per-ticket").innerText = getDisplayTime(
     timePerTicket
   );
-}
+};
 
-function refreshTicketsLeft() {
+const refreshTicketsLeft = () => {
   document.getElementById("tickets-left").innerText = ticketsLeft;
-}
+};
 
-function toggleConfirmation() {
+const toggleConfirmation = () => {
   document.getElementById("button-bar").classList.toggle("is-hidden");
   document.getElementById("button-confirmation").classList.toggle("is-hidden");
-}
+};
 
-function verifyFormAndSubmit() {
+const verifyFormAndSubmit = () => {
   const tickets = validateInput("tickets");
   const time = validateInput("time");
   if (tickets && time) {
     startMeeting(tickets, time);
   }
-}
+};
 
-function validateInput(elementId) {
+const validateInput = elementId => {
   const element = document.getElementById(elementId);
   const value = parseInt(element.value);
   if (isNaN(value) || value < 1) {
@@ -141,17 +141,17 @@ function validateInput(elementId) {
     removeInputError(element);
     return value;
   }
-}
+};
 
-function addInputError(inputElement) {
+const addInputError = inputElement => {
   inputElement.classList.add("is-danger");
-}
+};
 
-function removeInputError(inputElement) {
+const removeInputError = inputElement => {
   inputElement.classList.remove("is-danger");
-}
+};
 
-function getDisplayTime(timestamp) {
+const getDisplayTime = timestamp => {
   let timeValues = [];
   let timeValue;
   let remainingTime = Math.floor(timestamp / 1000);
@@ -170,22 +170,22 @@ function getDisplayTime(timestamp) {
     ":" +
     getDisplayNumber(seconds);
   return timestamp < 0 ? "-" + timeString : timeString;
-}
+};
 
-function getDisplayNumber(number) {
+const getDisplayNumber = number => {
   if (number < 10) {
     return "0" + number;
   }
   return number;
-}
+};
 
-function loadFromLocalStorage(state) {
+const loadFromLocalStorage = state => {
   timeEnd = state.timeEnd;
   ticketsLeft = state.ticketsLeft;
   timePerTicket = state.timePerTicket;
-}
+};
 
-function loadIntoLocalStorage() {
+const loadIntoLocalStorage = () => {
   const state = {
     timeEnd: timeEnd,
     ticketsLeft: ticketsLeft,
@@ -194,13 +194,13 @@ function loadIntoLocalStorage() {
   chrome.storage.local.set({ state }, () => {
     console.log("Set state:", state);
   });
-}
+};
 
-function clearLocaleStorage() {
+const clearLocaleStorage = () => {
   chrome.storage.local.set({ state: null }, () => {
     console.log("State cleared");
   });
-}
+};
 
 document.getElementById("start-button").onclick = verifyFormAndSubmit;
 document.getElementById("next-ticket").onclick = nextTicket;
