@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Groomer</title>
+		<title>Timebox</title>
 		<link rel="stylesheet" href="assets/styles/bulma.min.css">
 		<style>
 			body {
@@ -15,29 +15,29 @@
 	</head>
 	<body>
 		<section class="view-page is-hidden" id="start-view">
-			<h1 class="is-size-3">Groomer</h1>
+			<h1 class="is-size-3">Timebox</h1>
 			<p>
-				Number of Tickets
+				Number of Items
 				<input id="tickets" type="number" class="input">
 			</p>
 			<p>
-				Length of Meeting (minutes)
+				Length of Time (minutes)
 				<input id="time" type="number" class="input">
 			</p>
 			<button
 				id="start-button"
 				class="button is-success">
-				Start Meeting
+				Start
 			</button>
 		</section>
 		<section class="view-page is-hidden" id="timer-view">
 			<div class="has-text-centered">
 				<div id="timer" class="is-size-1"></div>
 				<div class="is-size-5">
-					Time Per Ticket: <span id="time-per-ticket"></span>
+					Time Per Item: <span id="time-per-ticket"></span>
 				</div>
 				<div class="is-size-5">
-					Remaining Tickets: <strong id="tickets-left" class="has-text-info"></strong>
+					Remaining Items: <strong id="tickets-left" class="has-text-info"></strong>
 				</div>
 				<div id="button-bar">
 					<button
@@ -48,7 +48,7 @@
 					<button
 						id="next-ticket"
 						class="button is-info is-outlined">
-						Next Ticket
+						Next Item
 					</button>
 				</div>
 				<div id="button-confirmation" class="is-hidden">
@@ -63,7 +63,7 @@
 					<button
 						id="confirmation-end-meeting"
 						class="button is-danger">
-						End Meeting
+						Yes
 					</button>
 				</div>
 			</div>
@@ -83,6 +83,6 @@
 		<section class="view-page" id="default-view">
 			<p class="has-text-centered">Something must have gone wrong :/</p>
 		</section>
-		<script src="groomer.js"></script>
+		<script src="timebox.js"></script>
 	</body>
 </html>
