@@ -1,14 +1,14 @@
 {
-  "name": "Groomer",
-  "version": "0.0.2",
-  "description": "A smarter backlog grooming timer.",
+  "name": "Timebox",
+  "version": "1.0.0",
+  "description": "Designed for backlog refinement at nCino ;)",
   "permissions": ["storage"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "browser_action": {
-    "default_popup": "groomer.html"
+    "default_popup": "timebox.html"
   },
   "manifest_version": 2
 }
