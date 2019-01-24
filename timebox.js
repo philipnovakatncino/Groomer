@@ -211,12 +211,12 @@ document.getElementById("confirmation-end-meeting").onclick = () => {
   toggleConfirmation();
 };
 document.getElementById("start-over").onclick = startOver;
-document.onkeydown = event => {
+document.getElementById("start-view").onkeydown = event => {
   if (event.key == "Enter") {
     document.getElementById("start-button").classList.add("is-active");
   }
 };
-document.onkeyup = event => {
+document.getElementById("start-view").onkeyup = event => {
   if (event.key == "Enter") {
     document.getElementById("start-button").classList.remove("is-active");
     verifyFormAndSubmit();
